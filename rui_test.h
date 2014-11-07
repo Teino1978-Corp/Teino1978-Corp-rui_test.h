@@ -11,25 +11,26 @@
 
 #ifdef RUI_TEST_INSTRUCTIONS
 /*
- # RUI Test
- -------------------------------------------------------------------------------------------
 
- ## How do I...
+# RUI Test
+-------------------------------------------------------------------------------------------
 
- --
+## How do I...
+
+ ```
  #include "rui_test.h"
 
  rt_test(sanity) {
 	rt_must(true);
 	rt_must_not(false);
  }
- --
+ ```
 
  That's it.
 
- ## No, how do I really...
+## No, how do I really...
 
- --
+ ```
  #include "rui_test.h"
  #include "myobject.h"
 
@@ -56,8 +57,9 @@
  rt_test(strings) {
 	rt_must_be_equal(myobject_size(obj), test_data_size + 1);
 	rt_strings_must_be_same(myobject_tostr(obj), test_str);
-	rt_numbers_must_be_within(myobject_size(obj) * 0.1f, test_data_size *
- 0.1f, 0.001f)
+	rt_numbers_must_be_within(myobject_size(obj) * 0.1f,
+				  test_data_size * 0.1f,
+				  0.001f)
  }
 
  rt_test(floats) {
@@ -69,12 +71,13 @@
  #include <complex.h>
  rt_test(sanity) {
 	float complex euler_val = cpowf(M_E, I * M_PI);
-	bool eulers_identity = (creal(euler_val) == -1.f && cimag(euler_val) ==
- 0.f);
+	bool eulers_identity = (creal(euler_val) == -1.f &&
+				cimag(euler_val) == 0.f);
 	rt_assert(eulers_identity,
-		  "Universe error", "e^(i*π) == -1 should be true, but was [%f,
- %f]. Check local value of true.",
-		  creal(euler_val), cimag(euler_val));
+		  "Universe error", "e^(i*π) == -1 should be true, "
+				    "but was [%f, %f]. Check local value of
+true.",
+				    creal(euler_val), cimag(euler_val));
  }
 
  */
@@ -212,11 +215,11 @@
 
 #define rt_assert(v, desc, ...)                                                \
 	if (!(v)) rt_fail(desc " < " #v)
-#define rt_assert_fmt(v, desc, fmt, ...)                                                \
-	if (!(v)) {                                                                     \
-		char assert_buf[1024];                                                  \
-		snprintf(assert_buf, 1024, "%s < " fmt " (%s)", desc, __VA_ARGS__, #v); \
-		rt_fail(assert_buf);                                                    \
+#define rt_assert_fmt(v, desc, fmt, ...)                                           \
+	if (!(v)) {                                                                \
+		char assert_buf[1024];                                             \
+		snprintf(assert_buf, 1024, "%s < %s " fmt, #v, desc, __VA_ARGS__); \
+		rt_fail(assert_buf);                                               \
 	}
 
 
